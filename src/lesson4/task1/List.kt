@@ -245,4 +245,59 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    return toRusArr(n).filter { it.isNotEmpty() }.joinToString(" ")
+}
+
+fun toRusArr(n: Int, listPar: List<String> = listOf<String>()): MutableList<String> {
+    var list = listPar.toMutableList()
+
+    return when (n) {
+        0 -> (listOf("") + list).toMutableList()
+        1 -> (listOf("один") + list).toMutableList()
+        2 -> (listOf("два") + list).toMutableList()
+        3 -> (listOf("три") + list).toMutableList()
+        4 -> (listOf("четыре") + list).toMutableList()
+        5 -> (listOf("пять") + list).toMutableList()
+        6 -> (listOf("шесть") + list).toMutableList()
+        7 -> (listOf("семь") + list).toMutableList()
+        8 -> (listOf("восемь") + list).toMutableList()
+        9 -> (listOf("девять") + list).toMutableList()
+        10 -> (listOf("десять") + list).toMutableList()
+        11 -> (listOf("одиннадцать") + list).toMutableList()
+        12 -> (listOf("двенадцать") + list).toMutableList()
+        13 -> (listOf("тринадцать") + list).toMutableList()
+        14 -> (listOf("четырнадцать") + list).toMutableList()
+        15 -> (listOf("пятнадцать") + list).toMutableList()
+        16 -> (listOf("шестнадцать") + list).toMutableList()
+        17 -> (listOf("семнадцать") + list).toMutableList()
+        18 -> (listOf("восемнадцать") + list).toMutableList()
+        19 -> (listOf("девятнадцать") + list).toMutableList()
+        in 20..29 -> (listOf("двадцать") + toRusArr(n - 20) + list).toMutableList()
+        in 30..39 -> (listOf("тридцать") + toRusArr(n - 30) + list).toMutableList()
+        in 40..49 -> (listOf("сорок") + toRusArr(n - 40) + list).toMutableList()
+        in 50..59 -> (listOf("пятьдесят") + toRusArr(n - 50) + list).toMutableList()
+        in 60..69 -> (listOf("шестьдесят") + toRusArr(n - 60) + list).toMutableList()
+        in 70..79 -> (listOf("семьдесят") + toRusArr(n - 70) + list).toMutableList()
+        in 80..89 -> (listOf("восемьдесят") + toRusArr(n - 80) + list).toMutableList()
+        in 90..99 -> (listOf("девяносто") + toRusArr(n - 90) + list).toMutableList()
+        in 100..199 -> (listOf("сто") + toRusArr(n - 100) + list).toMutableList()
+        in 200..299 -> (listOf("двести") + toRusArr(n - 200) + list).toMutableList()
+        in 300..399 -> (listOf("триста") + toRusArr(n - 300) + list).toMutableList()
+        in 400..499 -> (listOf("четыреста") + toRusArr(n - 400) + list).toMutableList()
+        in 500..599 -> (listOf("пятьсот") + toRusArr(n - 500) + list).toMutableList()
+        in 600..699 -> (listOf("шестьсот") + toRusArr(n - 600) + list).toMutableList()
+        in 700..799 -> (listOf("семьсот") + toRusArr(n - 700) + list).toMutableList()
+        in 800..899 -> (listOf("восемьсот") + toRusArr(n - 800) + list).toMutableList()
+        in 900..999 -> (listOf("девятьсот") + toRusArr(n - 900) + list).toMutableList()
+        else -> (toRusArr(n / 1000).map { if (it == "один") "одна" else if (it == "два") "две" else it }
+                + when (n / 1000) {
+            0 -> ""
+            in listOf(1, 21, 31, 41, 51, 61, 71, 81, 91) -> "тысяча"
+            in listOf(2, 22, 32, 42, 52, 62, 72, 82, 92) -> "тысячи"
+            in listOf(3, 23, 33, 43, 53, 63, 73, 83, 93) -> "тысячи"
+            in listOf(4, 24, 34, 44, 54, 64, 74, 84, 94) -> "тысячи"
+            else -> "тысяч"
+        } + toRusArr(n % 1000)).toMutableList()
+    }
+}
